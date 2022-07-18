@@ -1,0 +1,48 @@
+.table {
+  font-size: 14px;
+  line-height: 1rem;
+  vertical-align:baseline;
+  width: 1900px;
+
+  thead {    
+    tr {
+      th:first-child {
+        border-top-left-radius: 5px;          
+      }
+      th:last-child {
+        border-top-right-radius: 5px;          
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      &.active {
+        background-color: #b8daff;
+      }
+
+      td {
+        width: 7%;
+      }
+
+      td:nth-child(n+1):nth-child(-n+4), td:nth-child(n+7):nth-child(-n+8) {
+        width: 5%;
+      } 
+    }
+  }
+
+  select {
+    line-height: 1;
+    border: none;
+    background-color: transparent;
+
+    &:disabled {
+      opacity: 0.3;
+    }
+
+    &:focus, &:active, &::selection {
+      box-shadow: none;
+      border: none;
+    }
+  }
+}

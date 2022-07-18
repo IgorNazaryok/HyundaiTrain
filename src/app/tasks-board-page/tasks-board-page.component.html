@@ -1,0 +1,72 @@
+<table class="table table-striped">
+  <thead>
+    <tr class="table-dark">
+      <th scope="col">ID</th>
+      <th scope="col">Status</th>
+      <th scope="col">Train</th>
+      <th scope="col">Car</th>
+      <th scope="col">MajorEQ</th>
+      <th scope="col">Asset</th>
+      <th scope="col">S/N</th>
+      <th scope="col">Position</th>
+      <th scope="col">Proc.Type</th>
+      <th scope="col">S/N Install</th>
+      <th scope="col">S/N Remove</th>
+      <th scope="col">Start Date</th>
+      <th scope="col">Comp. Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+    *ngFor="let task of tasks"
+    [class.active]="task.isActive"
+    (dblclick)="activateTask(task.woTaskUID, $event)"
+    (click)="onClick(task.isActive, $event)"
+    >
+    <td>{{task.woTaskUID}}</td>
+    <td>
+      <select class="form-select form-select-sm" [disabled] = "!task.isActive" [ngModel]="task.woTaskStatusID">
+        <option *ngFor="let status of DrobLists['Status']" [value]="status.ID">{{status.ComboValue}}</option>
+      </select>
+    </td>
+    <td>
+      <select class="form-select form-select-sm" [disabled] = "!task.isActive" [ngModel]="task.woTaskAssetMainID">
+        <option *ngFor="let train of DrobLists['AssetMain']" [value]="train.ID">{{train.ComboValue}}</option>
+      </select>
+    </td>
+    <td>
+      <select class="form-select form-select-sm" [disabled] = "!task.isActive" [ngModel]="task.woTaskAssetSubID">
+        <option *ngFor="let car of DrobLists['AssetSub']" [value]="car.ID">{{car.ComboValue}}</option>
+      </select>
+    </td>
+    <td>
+      <select 
+      class="form-select form-select-sm" 
+      [disabled] = "!task.isActive" 
+      [ngModel]="task.woTaskMajorEQID"
+      (ngModelChange)="updateAsset($event, task.woTaskUID)"
+      >
+        <option *ngFor="let major of DrobLists['MajorEQs']" [value]="major.ID">{{major.ComboValue}}</option>
+      </select>
+    </td>    
+    <td>
+      <select class="form-select form-select-sm" [disabled] = "!task.isActive" [ngModel]="task.woTaskAssetID">
+        <option 
+          *ngFor="let asset of DrobLists[task.woTaskMajorEQID]" [value]="asset.ID">{{asset.ComboValue}}</option>
+      </select>
+    </td>   
+    <td>{{task.woTaskSerialNumber}}</td>
+    <td>{{task.woTaskPosition}}</td>
+    <td>
+      <select class="form-select form-select-sm" [disabled] = "!task.isActive" [ngModel]="task.woTaskProcessTypeID">
+        <option *ngFor="let type of DrobLists['ProcessTypes']" [value]="type.ID">{{type.ComboValue}}</option>
+      </select>
+    </td>
+    <td>{{task.woTaskSerialNumberInstall}}</td>
+    <td>{{task.woTaskSerialNumberRemove}}</td>
+    <td>{{task.woTaskTimeToStart|date:'dd.MM.y H:mm'}}</td>
+    <td>{{task.woTaskTargetFinish|date:'dd.MM.y H:mm'}}</td>
+    </tr>
+  </tbody>
+</table>
+
